@@ -55,6 +55,9 @@ section.view{padding-top:16px;display:flex;flex-direction:column;gap:14px}
 .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:7px;min-height:38px}
 .chip .dot{width:9px;height:9px;border-radius:50%}
 .chip[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:var(--cobalt-ink)}
+.chip.cat-event[aria-pressed="true"]{background:var(--tg-event-bg);color:var(--tg-event-fg);border-color:var(--c-event)}
+.chip.cat-exhib[aria-pressed="true"]{background:var(--tg-exhib-bg);color:var(--tg-exhib-fg);border-color:var(--c-exhib)}
+.chip.cat-perf[aria-pressed="true"]{background:var(--tg-perf-bg);color:var(--tg-perf-fg);border-color:var(--c-perf)}
 .chip[aria-pressed="false"] .dot{opacity:.45}
 .cal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -214,10 +217,9 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function renderFilters(){
   var f=$('catFilters');f.innerHTML='';
   Object.keys(CATS).forEach(function(k){
-    var b=el('button','chip','<span class="dot" style="background:var(--c-'+k+')"></span>'+CATS[k]);
+    var b=el('button','chip cat-'+k,'<span class="dot" style="background:var(--c-'+k+')"></span>'+CATS[k]);
     b.setAttribute('aria-pressed',st.cats[k]?'true':'false');
     b.onclick=function(){st.cats[k]=st.cats[k]?0:1;render()};
-    if(st.cats[k])b.querySelector('.dot').style.background='var(--cobalt-ink)';
     f.appendChild(b);
   });
 }
@@ -313,5 +315,6 @@ $('prev').onclick=function(){st.m--;if(st.m<0){st.m=11;st.y--}renderCal()};
 $('next').onclick=function(){st.m++;if(st.m>11){st.m=0;st.y++}renderCal()};
 document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){setTab(b.dataset.t)}});
 ['tgOn','tgAm','tgPm'].forEach(function(i){$(i).onclick=function(){this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')}});
-Promise.all([fetch("data/events.json").then(function(r){return r.json()}),fetch("data/experiences.json").then(function(r){return r.json()})]).then(function(d){E=d[0];X=d[1];render();renderAlert()}).catch(function(){renderFilters();renderCal();renderAlert();$("dayList").innerHTML='<div class="empty">일정을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</div>'});
+var CB="?t="+Math.floor(Date.now()/120000);
+Promise.all([fetch("data/events.json"+CB).then(function(r){return r.json()}),fetch("data/experiences.json"+CB).then(function(r){return r.json()})]).then(function(d){E=d[0];X=d[1];render();renderAlert()}).catch(function(){renderFilters();renderCal();renderAlert();$("dayList").innerHTML='<div class="empty">일정을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</div>'});
 </script>
