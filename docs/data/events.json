@@ -166,5 +166,17 @@
   "paid": 1,
   "src": "https://www.instagram.com/p/DgGxHOqACaC/",
   "chk": "11.24 게시"
+ },
+ {
+  "id": 404,
+  "cat": "event",
+  "title": "성남동 눈꽃축제",
+  "start": "2026-12-24",
+  "end": "2026-12-27",
+  "time": "시간 미확인",
+  "place": "중구 성남동",
+  "fee": "요금 미기재",
+  "src": "https://www.instagram.com/p/Df1hcEIk8SJ/",
+  "chk": "11.25 승인"
  }
 ]
