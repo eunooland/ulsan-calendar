@@ -17,6 +17,9 @@
   --c-event:#0047ab;
   --c-exhib:#0c8f80;
   --c-perf:#d4572f;
+  --tg-event-bg:#dce8fb;--tg-event-fg:#16336b;   /* 종류 태그: 파스텔 배경 + 진한 글자 */
+  --tg-exhib-bg:#d6f0ea;--tg-exhib-fg:#0d4d45;
+  --tg-perf-bg:#fde3d8;--tg-perf-fg:#7a2c12;
   --warn:#a35b00;
   --warn-bg:#fff1d6;
   --ok:#0c7a52;
@@ -25,11 +28,13 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --cobalt:#5b93f0;--cobalt-ink:#06142e;--cobalt-soft:#16284a;--bg:#0b1322;--card:#121d33;--fg:#e8eefb;--muted:#9fb0cf;--line:#24344f;
-    --c-event:#6aa0f5;--c-exhib:#3fc2b0;--c-perf:#f08b66;--warn:#f2b45a;--warn-bg:#3a2a0e;--ok:#4cc794;color-scheme:dark}
+    --c-event:#6aa0f5;--c-exhib:#3fc2b0;--c-perf:#f08b66;--warn:#f2b45a;--warn-bg:#3a2a0e;--ok:#4cc794;
+    --tg-event-bg:#223a66;--tg-event-fg:#d3e3ff;--tg-exhib-bg:#17463f;--tg-exhib-fg:#c3f0e7;--tg-perf-bg:#52301f;--tg-perf-fg:#ffdccd;color-scheme:dark}
 }
 :root[data-theme="dark"]{
   --cobalt:#5b93f0;--cobalt-ink:#06142e;--cobalt-soft:#16284a;--bg:#0b1322;--card:#121d33;--fg:#e8eefb;--muted:#9fb0cf;--line:#24344f;
-  --c-event:#6aa0f5;--c-exhib:#3fc2b0;--c-perf:#f08b66;--warn:#f2b45a;--warn-bg:#3a2a0e;--ok:#4cc794;color-scheme:dark}
+  --c-event:#6aa0f5;--c-exhib:#3fc2b0;--c-perf:#f08b66;--warn:#f2b45a;--warn-bg:#3a2a0e;--ok:#4cc794;
+  --tg-event-bg:#223a66;--tg-event-fg:#d3e3ff;--tg-exhib-bg:#17463f;--tg-exhib-fg:#c3f0e7;--tg-perf-bg:#52301f;--tg-perf-fg:#ffdccd;color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5;margin:0;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
@@ -75,9 +80,10 @@ section.view{padding-top:16px;display:flex;flex-direction:column;gap:14px}
 .list{display:flex;flex-direction:column;gap:10px}
 .item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .item .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.tag{font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;color:#fff}
-.tag.event{background:var(--c-event)}.tag.exhib{background:var(--c-exhib)}.tag.perf{background:var(--c-perf)}
-[data-theme="dark"] .tag,:root:not([data-theme="light"]) .tag{color:#06142e}
+.tag{font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px}
+.tag.event{background:var(--tg-event-bg);color:var(--tg-event-fg)}
+.tag.exhib{background:var(--tg-exhib-bg);color:var(--tg-exhib-fg)}
+.tag.perf{background:var(--tg-perf-bg);color:var(--tg-perf-fg)}
 .fee{font-size:11px;font-weight:700;color:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:1px 6px}
 .fee.paid{color:var(--muted);border-color:var(--line)}
 .item h3{margin:0;font-size:16px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
@@ -239,7 +245,7 @@ function card(e){
   var t='<div class="row"><span class="tag '+e.cat+'">'+CATS[e.cat]+'</span><span class="fee'+(e.paid?' paid':'')+'">'+esc(e.fee)+'</span></div>'+
    '<h3>'+esc(e.title)+'</h3><div class="meta">'+esc(e.time)+'<br>'+esc(e.place)+'</div>'+
    (e.note?'<div class="note">'+esc(e.note)+'</div>':'')+
-   '<div class="foot"><a class="src" href="'+e.src+'" target="_blank" rel="noopener">출처 보기 ↗</a><span class="chk">'+esc(e.chk)+'</span></div>';
+   '<div class="foot"><span><a class="src" href="'+e.src+'" target="_blank" rel="noopener">출처 보기 ↗</a>'+(e.src2?' · <a class="src" href="'+e.src2+'" target="_blank" rel="noopener">출처 2 ↗</a>':'')+'</span><span class="chk">'+esc(e.chk)+'</span></div>';
   c.innerHTML=t;return c;
 }
 function renderDay(){
