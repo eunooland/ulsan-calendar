@@ -268,7 +268,7 @@ function renderDay(){
     var tx=xs.length?'이 날 체험 '+xs.length+'건 보기':'상시 운영 체험 '+xa.length+'건 보기';
     if(xs.length&&xa.length)tx+=' (+상시 '+xa.length+'건)';
     var b=el('button','xlink','<span>'+tx+'</span><span>›</span>');
-    b.onclick=function(){st.expDate=st.sel;setTab('exp',1)};xl.appendChild(b);
+    b.onclick=function(){st.expDate=st.sel;st.age='전체';setTab('exp',1)};xl.appendChild(b);
   }
   var o=$('ongoing');o.innerHTML='';
   if(long.length){
@@ -312,7 +312,14 @@ function renderExp(){
   }
   var known=live.filter(function(x){return x.ages.length});
   var unk=live.filter(function(x){return !x.ages.length});
-  var show=known.filter(function(x){return st.age==='전체'||x.ages.indexOf(st.age)>-1||x.ages.indexOf('가족전체')>-1});
+  var show;
+  if(st.expDate){
+    /* 날짜별 보기: 연령 미기재 체험도 목록에 바로 보여 준다 */
+    show=live.filter(function(x){return st.age==='전체'||!x.ages.length||x.ages.indexOf(st.age)>-1||x.ages.indexOf('가족전체')>-1});
+    unk=[];
+  }else{
+    show=known.filter(function(x){return st.age==='전체'||x.ages.indexOf(st.age)>-1||x.ages.indexOf('가족전체')>-1});
+  }
   if(!show.length)L.appendChild(el('div','empty',st.expDate?(alw.length?'이 날 열리는 단기 체험은 없고, 상시 운영 체험만 있습니다.':'이 날짜에 맞는 체험이 없습니다.'):'고른 연령에 맞는 체험이 아직 없습니다.'));
   show.forEach(function(x){L.appendChild(xcard(x))});
   var u=$('expUnknown');u.innerHTML='';
