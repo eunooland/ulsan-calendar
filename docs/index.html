@@ -157,6 +157,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--card
 
 <section class="view" id="v-exp" hidden>
   <div class="dayhead"><h2>체험·신청</h2><small>신청 링크로 바로 연결</small></div>
+  <div id="expBanner"></div>
   <div class="ages" id="ageFilters" role="group" aria-label="연령 선택"></div>
   <div class="list" id="expList"></div>
   <div id="expUnknown"></div>
@@ -196,9 +197,10 @@ var TODAY=(function(){var d=new Date();return d.getFullYear()+'-'+String(d.getMo
 var CATS={event:'행사',exhib:'전시',perf:'공연'};
 var AGES=['영유아','초등저학년','초등고학년','중학생','고등학생','성인','가족전체'];
 var E=[],X=[];
-var st={y:+TODAY.slice(0,4),m:+TODAY.slice(5,7)-1,sel:TODAY,cats:{event:1,exhib:1,perf:1},age:'전체',tab:'cal'};
+var st={y:+TODAY.slice(0,4),m:+TODAY.slice(5,7)-1,sel:TODAY,cats:{event:1,exhib:1,perf:1},age:'전체',tab:'cal',expDate:null};
 function lastOf(x){return x.days?x.days[x.days.length-1]:x.end}
 function firstOf(x){return x.days?x.days[0]:x.start}
+function always(x){return !x.days&&(new Date(x.end)-new Date(x.start))/864e5>31}
 var $=function(i){return document.getElementById(i)};
 function iso(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
 function dow(s){return new Date(s+'T00:00:00Z').getUTCDay()}
@@ -259,9 +261,15 @@ function renderDay(){
   var L=$('dayList');L.innerHTML='';
   if(!today.length)L.appendChild(el('div','empty','이 날 등록된 일정이 없습니다.'+(long.length?'<br>아래 기간 중 진행 항목을 확인해 보세요.':'')));
   today.forEach(function(e){L.appendChild(card(e))});
-  var xs=X.filter(function(x){return on(x,st.sel)});
+  var xs=X.filter(function(x){return on(x,st.sel)&&!always(x)});
+  var xa=X.filter(function(x){return on(x,st.sel)&&always(x)});
   var xl=$('expLink');xl.innerHTML='';
-  if(xs.length){var b=el('button','xlink','<span>이 날 체험 '+xs.length+'건 보기</span><span>›</span>');b.onclick=function(){setTab('exp')};xl.appendChild(b)}
+  if(xs.length||xa.length){
+    var tx=xs.length?'이 날 체험 '+xs.length+'건 보기':'상시 운영 체험 '+xa.length+'건 보기';
+    if(xs.length&&xa.length)tx+=' (+상시 '+xa.length+'건)';
+    var b=el('button','xlink','<span>'+tx+'</span><span>›</span>');
+    b.onclick=function(){st.expDate=st.sel;setTab('exp',1)};xl.appendChild(b);
+  }
   var o=$('ongoing');o.innerHTML='';
   if(long.length){
     var d=el('details','more','<summary>기간 중 계속되는 전시·행사 '+long.length+'건</summary>');
@@ -292,20 +300,33 @@ function renderExp(){
   ageChips($('ageFilters'),function(a){st.age=a;render()},st.age,false);
   var L=$('expList');L.innerHTML='';
   var live=X.filter(function(x){return lastOf(x)>=TODAY}).sort(function(a,b){return firstOf(a)<firstOf(b)?-1:firstOf(a)>firstOf(b)?1:0});
+  var bn=$('expBanner');bn.innerHTML='';
+  var alw=[];
+  if(st.expDate){
+    var dd=st.expDate;
+    alw=live.filter(function(x){return on(x,dd)&&always(x)});
+    live=live.filter(function(x){return on(x,dd)&&!always(x)});
+    var bx=el('div','xlink','<span>'+fmt(dd)+' 체험만 보는 중</span>');
+    var rb=el('button','chip','전체 보기');rb.onclick=function(){st.expDate=null;renderExp()};
+    bx.appendChild(rb);bn.appendChild(bx);
+  }
   var known=live.filter(function(x){return x.ages.length});
   var unk=live.filter(function(x){return !x.ages.length});
   var show=known.filter(function(x){return st.age==='전체'||x.ages.indexOf(st.age)>-1||x.ages.indexOf('가족전체')>-1});
-  if(!show.length)L.appendChild(el('div','empty','고른 연령에 맞는 체험이 아직 없습니다.'));
+  if(!show.length)L.appendChild(el('div','empty',st.expDate?(alw.length?'이 날 열리는 단기 체험은 없고, 상시 운영 체험만 있습니다.':'이 날짜에 맞는 체험이 없습니다.'):'고른 연령에 맞는 체험이 아직 없습니다.'));
   show.forEach(function(x){L.appendChild(xcard(x))});
   var u=$('expUnknown');u.innerHTML='';
   if(unk.length){var d=el('details','more','<summary>연령 미기재 체험 '+unk.length+'건</summary>');var l=el('div','list');unk.forEach(function(x){l.appendChild(xcard(x))});d.appendChild(l);u.appendChild(d)}
+  if(alw.length){var d2=el('details','more','<summary>상시 운영 체험 '+alw.length+'건</summary>');d2.open=true;var l2=el('div','list');alw.forEach(function(x){l2.appendChild(xcard(x))});d2.appendChild(l2);u.appendChild(d2)}
 }
 var alertAges={'영유아':1,'초등저학년':1};
 function renderAlert(){
   ageChips($('alertAges'),function(a){alertAges[a]=alertAges[a]?0:1;renderAlert()},alertAges,true);
 }
-function setTab(t){
+function setTab(t,keep){
   st.tab=t;
+  if(t==='exp'&&!keep)st.expDate=null;
+  if(t==='exp')renderExp();
   ['cal','exp','alert'].forEach(function(k){$('v-'+k).hidden=k!==t});
   document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===t?'true':'false')});
   window.scrollTo(0,0);
