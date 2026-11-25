@@ -1,0 +1,169 @@
+[
+ {
+  "id": 1,
+  "cat": "event",
+  "title": "2026 울산문화박람회",
+  "start": "2026-11-26",
+  "end": "2026-11-29",
+  "time": "금~일 10:00~18:00",
+  "place": "울주군 유에코(UECO)",
+  "fee": "무료(일부 유료)",
+  "src": "https://www.instagram.com/p/DgJJ8bIkjPZ/",
+  "chk": "11.24 확인"
+ },
+ {
+  "id": 2,
+  "cat": "event",
+  "title": "세대공감 효문화축제 송가인 트로트 효 콘서트",
+  "start": "2026-11-27",
+  "end": "2026-11-27",
+  "time": "18:00",
+  "place": "태화강국가정원 남구 3둔치",
+  "fee": "무료",
+  "note": "객석이 가득 차면 추가 입장이 안 됩니다.",
+  "src": "https://www.instagram.com/p/DgGozCIz8u7/",
+  "chk": "11.24 확인"
+ },
+ {
+  "id": 3,
+  "cat": "event",
+  "title": "울산 크리스마스 마켓",
+  "days": [
+   "2026-11-27",
+   "2026-11-28",
+   "2026-12-04",
+   "2026-12-05",
+   "2026-12-11",
+   "2026-12-12",
+   "2026-12-18",
+   "2026-12-19",
+   "2026-12-23",
+   "2026-12-24",
+   "2026-12-25",
+   "2026-12-26"
+  ],
+  "time": "매주 금·토 (크리스마스 주간 수~토)",
+  "place": "울산대공원 정문 풍차 일원",
+  "fee": "요금 미기재",
+  "src": "https://www.instagram.com/p/DgHQN6Gid9D/",
+  "chk": "11.23 게시"
+ },
+ {
+  "id": 4,
+  "cat": "event",
+  "title": "장생포 토요불꽃",
+  "start": "2026-11-28",
+  "end": "2026-11-28",
+  "time": "불꽃 시작 시간 미기재 · 먹거리 17:40~",
+  "place": "남구 장생포",
+  "fee": "요금 미기재",
+  "note": "기상 상황에 따라 취소될 수 있습니다. 11월 14일 회차는 취소됐습니다.",
+  "src": "https://www.instagram.com/p/Df_D1c6CFIQ/",
+  "chk": "11.21 게시"
+ },
+ {
+  "id": 5,
+  "cat": "event",
+  "title": "울산 크리스마스 문화대축제",
+  "start": "2026-11-01",
+  "end": "2027-01-03",
+  "time": "점등 시간 미확인",
+  "place": "태화강국가정원 일원",
+  "fee": "요금 미기재",
+  "src": "https://www.news21tongsin.co.kr/news/309142",
+  "chk": "11.18 확인"
+ },
+ {
+  "id": 6,
+  "cat": "exhib",
+  "title": "《머물며 남기다》 레지던시 소장품전",
+  "start": "2026-11-24",
+  "end": "2026-12-11",
+  "closed": [
+   1
+  ],
+  "time": "10:00~21:00 · 월요일 휴관",
+  "place": "장생포문화창고 4층",
+  "fee": "요금 미기재",
+  "src": "https://www.instagram.com/p/DgGoSqnTQ71/",
+  "chk": "11.24 게시"
+ },
+ {
+  "id": 7,
+  "cat": "exhib",
+  "title": "예술공장 성남 3기 결과보고전 〈Between ▁▁ and ▁▁〉",
+  "start": "2026-11-13",
+  "end": "2026-12-05",
+  "closed": [
+   0
+  ],
+  "time": "9:00~18:00 · 일요일 휴관",
+  "place": "중구 예술공장 성남",
+  "fee": "요금 미기재",
+  "src": "https://www.instagram.com/p/Df54EXUktNV/",
+  "chk": "11.18 확인"
+ },
+ {
+  "id": 8,
+  "cat": "exhib",
+  "title": "슬도아트 《업(Karma)》",
+  "start": "2026-11-13",
+  "end": "2027-01-24",
+  "time": "시간 미확인",
+  "place": "동구 슬도아트",
+  "fee": "요금 미기재",
+  "src": "https://www.instagram.com/seuldoart/",
+  "chk": "11.18 확인"
+ },
+ {
+  "id": 9,
+  "cat": "perf",
+  "title": "가족뮤지컬 〈혹부리영감과 신나는 도깨비〉",
+  "start": "2026-11-27",
+  "end": "2026-11-29",
+  "time": "회차 시간 미확인",
+  "place": "중구 아트홀 마당",
+  "fee": "20,000원",
+  "paid": 1,
+  "src": "https://www.ulsanculture.kr/",
+  "chk": "11.20 확인"
+ },
+ {
+  "id": 10,
+  "cat": "perf",
+  "title": "모던사운즈 재즈 빅밴드 JAZZ TRILOGY Ⅲ [빛:LIGHT]",
+  "start": "2026-12-05",
+  "end": "2026-12-05",
+  "time": "17:00",
+  "place": "동구 꽃바위문화관 3층",
+  "fee": "10,000원",
+  "paid": 1,
+  "src": "https://www.instagram.com/p/DgGu4jeAknf/",
+  "chk": "11.24 게시"
+ },
+ {
+  "id": 11,
+  "cat": "perf",
+  "title": "울산현대필하모닉 제14회 정기연주회 〈A Winter Night in Music〉",
+  "start": "2026-12-10",
+  "end": "2026-12-10",
+  "time": "19:00",
+  "place": "동구 HD아트센터 대공연장",
+  "fee": "무료",
+  "src": "https://www.instagram.com/p/DgHGsAEkte0/",
+  "chk": "11.24 게시"
+ },
+ {
+  "id": 12,
+  "cat": "perf",
+  "title": "연극 〈꽃의 비밀〉 SPECIAL",
+  "start": "2026-12-24",
+  "end": "2026-12-25",
+  "time": "회차 시간 미확인 · 중학생 이상",
+  "place": "동구 HD아트센터 대공연장",
+  "fee": "30,000~77,000원",
+  "paid": 1,
+  "src": "https://www.instagram.com/p/DgGxHOqACaC/",
+  "chk": "11.24 게시"
+ }
+]
