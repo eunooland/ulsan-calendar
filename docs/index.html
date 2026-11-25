@@ -183,11 +183,13 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--card
 </div></nav>
 
 <script>
-var TODAY='2026-11-25';
+var TODAY=(function(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
 var CATS={event:'행사',exhib:'전시',perf:'공연'};
 var AGES=['영유아','초등저학년','초등고학년','중학생','고등학생','성인','가족전체'];
 var E=[],X=[];
-var st={y:2026,m:10,sel:'2026-11-27',cats:{event:1,exhib:1,perf:1},age:'전체',tab:'cal'};
+var st={y:+TODAY.slice(0,4),m:+TODAY.slice(5,7)-1,sel:TODAY,cats:{event:1,exhib:1,perf:1},age:'전체',tab:'cal'};
+function lastOf(x){return x.days?x.days[x.days.length-1]:x.end}
+function firstOf(x){return x.days?x.days[0]:x.start}
 var $=function(i){return document.getElementById(i)};
 function iso(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
 function dow(s){return new Date(s+'T00:00:00Z').getUTCDay()}
@@ -271,7 +273,7 @@ function ageChips(box,onPick,sel,multi){
 function xcard(x){
   var c=el('article','item');
   var ab=x.ages.length?'<div class="agebadges">'+x.ages.map(function(a){return '<span>'+a+'</span>'}).join('')+'</div>'+(x.ageNote?'<div class="meta">'+esc(x.ageNote)+'</div>':''):'<div class="agebadges"><span>연령 미기재</span></div>';
-  var when=x.days?fmt(x.days[0])+' 외':(x.start===x.end?fmt(x.start):fmt(x.start)+' ~ '+fmt(x.end).replace(/^\d+월 /,'').replace(/^/,''));
+  var when=x.days?fmt(x.days[0])+' 외':(x.start===x.end?fmt(x.start):fmt(x.start)+' ~ '+fmt(x.end));
   var btn=x.apply?'<a class="btn" href="'+x.apply+'" target="_blank" rel="noopener">'+esc(x.applyLabel)+' ↗</a>':'<span class="btn off">'+esc(x.applyLabel)+'</span>';
   c.innerHTML='<div class="row">'+(x.isNew?'<span class="new">NEW</span>':'')+'<span class="fee">'+esc(x.fee)+'</span></div><h3>'+esc(x.title)+'</h3>'+ab+
    '<div class="meta">'+when+' · '+esc(x.time)+'<br>'+esc(x.place)+'</div><div class="meta">'+esc(x.deadline)+'</div>'+btn+
@@ -281,8 +283,9 @@ function xcard(x){
 function renderExp(){
   ageChips($('ageFilters'),function(a){st.age=a;render()},st.age,false);
   var L=$('expList');L.innerHTML='';
-  var known=X.filter(function(x){return x.ages.length});
-  var unk=X.filter(function(x){return !x.ages.length});
+  var live=X.filter(function(x){return lastOf(x)>=TODAY}).sort(function(a,b){return firstOf(a)<firstOf(b)?-1:firstOf(a)>firstOf(b)?1:0});
+  var known=live.filter(function(x){return x.ages.length});
+  var unk=live.filter(function(x){return !x.ages.length});
   var show=known.filter(function(x){return st.age==='전체'||x.ages.indexOf(st.age)>-1||x.ages.indexOf('가족전체')>-1});
   if(!show.length)L.appendChild(el('div','empty','고른 연령에 맞는 체험이 아직 없습니다.'));
   show.forEach(function(x){L.appendChild(xcard(x))});
