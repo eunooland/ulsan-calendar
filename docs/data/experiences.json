@@ -183,5 +183,67 @@
   "isNew": true,
   "note": "재료비 입금 후에는 취소·환불이 안 됩니다.",
   "paid": 1
+ },
+ {
+  "id": 428,
+  "title": "U-CONTENTS 페스타",
+  "start": "2026-11-26",
+  "end": "2026-11-29",
+  "time": "10:00 ~ 18:00",
+  "place": "울산 울주군 삼남읍 울산역로 255, 유에코(울산전시컨벤션센터)",
+  "fee": "무료",
+  "src": "https://www.ulsanculture.kr/webuser/exhibit/CONTENTS-페스타-3809",
+  "chk": "11.27 승인",
+  "ages": [],
+  "ageNote": "",
+  "apply": "https://www.ucepc.or.kr/front/notice/eduInfoView?edu_no=99",
+  "applyLabel": "신청·예매하기",
+  "deadline": "문의 052-277-9212",
+  "isNew": true
+ },
+ {
+  "id": 430,
+  "title": "11월 공감장터 (구강서원 만들기·전통놀이 체험)",
+  "start": "2026-11-28",
+  "end": "2026-11-28",
+  "time": "14:00~16:00",
+  "place": "구강서원 (울산 중구 서원11길 45)",
+  "fee": "",
+  "ages": [],
+  "ageNote": "대상 연령 표기 없음(본문에 \"아이들이 좋아하는 행사\")",
+  "apply": "https://form.naver.com/response/lhdbXLNdD2",
+  "applyLabel": "온라인 신청(네이버폼) 또는 현장 접수",
+  "deadline": "티셔츠 꾸미기는 선착순 마감. 나머지 현장 접수 가능",
+  "isNew": true,
+  "note": "손난로·폰 주머니·리스 만들기, 그립톡 꾸미기, 소원등 만들기, 마술 공연, 전통놀이마당, 유생복 입기. 주차장 협소",
+  "src": "https://www.instagram.com/p/DgOt0Ihk3Cm/",
+  "chk": "11.27 승인"
+ },
+ {
+  "id": 431,
+  "title": "울산시립미술관 전시 연계 참여형 워크숍 (요요진 작가와 생성형 AI 릴스 만들기)",
+  "days": [
+   "2026-11-28",
+   "2026-12-26"
+  ],
+  "start": "2026-11-28",
+  "end": "2026-12-26",
+  "time": "14:00~16:00",
+  "place": "울산시립미술관 3전시실·1교육실",
+  "fee": "",
+  "ages": [
+   "초등고학년",
+   "중학생",
+   "고등학생",
+   "성인"
+  ],
+  "ageNote": "초등학교 4학년 이상 / 회당 15명",
+  "apply": "https://ulsan.go.kr/y/yes/main.do",
+  "applyLabel": "온라인 신청(울산모아 선착순)",
+  "deadline": "1회차(11.28) 신청 11.24 10:00~11.28 10:00. 2회차(12.26) 신청은 12월 둘째 주 오픈 예정",
+  "isNew": true,
+  "note": "요요진 작가와 《함께 살아가는 세계》 관람 후 생성형 AI로 릴스 영상 제작. 스마트폰·패드 지참",
+  "src": "https://www.instagram.com/p/DgL860RyqlR/",
+  "chk": "11.27 승인"
  }
 ]
