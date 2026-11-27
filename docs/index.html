@@ -132,7 +132,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--card
 <header class="top"><div class="top-in">
   <div>
     <h1>울사이드 캘린더</h1>
-    <p class="sub">기준일 11월 25일</p>
+    <p class="sub" id="updated"></p>
   </div>
   <a class="ig" href="https://www.instagram.com/eunoo_land/" target="_blank" rel="noopener">인스타 @eunoo_land</a>
 </div></header>
@@ -345,5 +345,12 @@ $('next').onclick=function(){st.m++;if(st.m>11){st.m=0;st.y++}renderCal()};
 document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){setTab(b.dataset.t)}});
 ['tgOn','tgAm','tgPm'].forEach(function(i){$(i).onclick=function(){this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')}});
 var CB="?t="+Math.floor(Date.now()/120000);
-Promise.all([fetch("data/events.json"+CB).then(function(r){return r.json()}),fetch("data/experiences.json"+CB).then(function(r){return r.json()})]).then(function(d){E=d[0];X=d[1];render();renderAlert()}).catch(function(){renderFilters();renderCal();renderAlert();$("dayList").innerHTML='<div class="empty">일정을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</div>'});
+// 머리말의 업데이트 날짜: 데이터 파일을 마지막으로 올린 시각(서버의 Last-Modified)으로 표시한다. 알 수 없으면 비워 둔다.
+var LM=[];
+function getJ(u){return fetch(u+CB).then(function(r){var m=r.headers.get('Last-Modified');if(m)LM.push(new Date(m));return r.json()})}
+function showUpdated(){
+  var t=LM.filter(function(d){return !isNaN(d)}).sort(function(a,b){return b-a})[0];
+  if(t)$('updated').textContent='업데이트 '+(t.getMonth()+1)+'월 '+t.getDate()+'일';
+}
+Promise.all([getJ("data/events.json"),getJ("data/experiences.json")]).then(function(d){E=d[0];X=d[1];showUpdated();render();renderAlert()}).catch(function(){renderFilters();renderCal();renderAlert();$("dayList").innerHTML='<div class="empty">일정을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</div>'});
 </script>
